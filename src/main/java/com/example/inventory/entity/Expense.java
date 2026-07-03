@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name="expense")
@@ -26,6 +27,7 @@ public class Expense {
 	@NotNull(message="Day is required")
 	@Min(value=1,message="Day must be between 1 and 31")
 	@Max(value=31,message="Day must be between 1 and 31")
+	@Column(name = "expense_day")
 	private Integer day;
 
 	@NotNull(message="Amount is required")
