@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import com.example.inventory.entity.Expense;
+import com.example.inventory.entity.ExpenseRequest;
 import com.example.inventory.service.ExpenseService;
 
 import jakarta.validation.Valid;
@@ -25,10 +26,19 @@ public class ExpenseRestController {
 
 
   @PostMapping
-  public ResponseEntity<Expense> create(@Valid @RequestBody Expense e) {
+  public ResponseEntity<Expense> create(
+          @Valid @RequestBody ExpenseRequest request) {
+
+      Expense e = new Expense();
+
+      e.setTitle(request.getTitle());
+      e.setDay(request.getDay());
+      e.setAmount(request.getAmount());
+      e.setCategory(request.getCategory());
+
       Expense saved = service.save(e);
-      return ResponseEntity.status(HttpStatus.CREATED)
-                           .body(saved);
+
+      return ResponseEntity.status(HttpStatus.CREATED).body(saved);
   }
   
   @PutMapping("/{id}")
