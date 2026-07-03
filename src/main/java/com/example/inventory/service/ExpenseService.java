@@ -18,10 +18,9 @@ public class ExpenseService {
         this.repo = repo;
     }
 
-    public void save(Expense expense) {
-        repo.save(expense);
+    public Expense save(Expense expense) {
+        return repo.save(expense);
     }
-
     public List<Expense> all() {
         return repo.findAll();
     }
@@ -105,5 +104,14 @@ public class ExpenseService {
             System.out.println(e.getTitle() + " | " + e.getCategory()));
 
         return result;
+    }
+    
+    public Expense findById(Integer id) {
+        return repo.findById(id)
+                   .orElseThrow(() -> new RuntimeException("Expense not found"));
+    }
+    
+    public void deleteById(Integer id) {
+        repo.deleteById(id);
     }
 }
